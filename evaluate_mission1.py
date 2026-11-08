@@ -52,12 +52,12 @@ def threshold_for_far(scores, labels, period, h, target):
     return at(lo)
 
 
-def evaluate(scores, labels, events, fold, far_targets=FAR_TARGETS):
+def evaluate(scores, labels, events, fold, far_targets=FAR_TARGETS, horizons=HORIZONS):
     """Pick thresholds on the fold's calibration year, then score its test block.
     Returns one row per (horizon, target, test anomaly) and one summary row per (horizon, target)."""
     test = events[(events.Category == 'Anomaly') & events.onset.between(*fold['test'], inclusive='left')]
     per_event, summary = [], []
-    for h in HORIZONS:
+    for h in horizons:
         eligible = test[test[f'valid_pos_{h}'] > 0]
         for far in far_targets:
             threshold = threshold_for_far(scores, labels, fold['calib'], h, far)
