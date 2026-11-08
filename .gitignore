@@ -1,0 +1,5 @@
+ESA-Mission*/
+cleaned/
+.ipynb_checkpoints/
+__pycache__/
+_tmp_*
